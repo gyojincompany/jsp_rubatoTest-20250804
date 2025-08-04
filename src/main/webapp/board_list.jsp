@@ -14,6 +14,14 @@
     <title>í´ëì ê¸°í ì»¤ë®¤ëí°</title>
 </head>
 <body>
+	<%
+		String sid = (String) session.getAttribute("memberId");
+		if(sid == null) {
+			response.sendRedirect("login.jsp");
+		}
+		//로그인 하지 않으면 본 페이지를 볼수 없음.
+	%>
+
     <div id="wrap">
         <header>
             <a href="index.html"><img id="logo" src="images/logo.png"></a>
