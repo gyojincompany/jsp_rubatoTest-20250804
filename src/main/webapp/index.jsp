@@ -12,11 +12,29 @@
     <title>클래식 기타 커뮤니티</title>
 </head>
 <body>
+	<%
+		String sessionId = (String) session.getAttribute("memberId");
+		//로그인 성공하여 본 페이지를 방문하면 sessionId 값은 로그인 한 아이디가 저장
+		//비로그인 상태에서 본 페이지를 방문하면 sessionId 값은 null	
+	%>
     <div id="wrap">
         <header>
             <a href="index.html"><img id="logo" src="images/logo.png"></a>
             <nav id="top_menu">
-                HOME  |  LOGIN  |  JOIN  |  NOTICE
+                HOME  |
+                <% if(sessionId == null) { %>  
+                LOGIN
+                <% } else { %>
+                LOOUT
+                <% } %>
+                  
+                |
+                <% if(sessionId == null) { %>
+                  JOIN
+				<% } else { %>
+				  LEVEL 3
+				<% } %>  	                    
+                |  NOTICE
             </nav>
             <nav id="main_menu">
                 <ul>
@@ -30,7 +48,8 @@
         </header>
 
         <aside>
-            <article id="login_box">
+        	<% if(sessionId == null) { %>  
+            <article id="login_box"> <!-- 비로그인 상태 박스 -->
                 <img id="login_title" src="images/ttl_login.png">
                 <div id="input_button">
                     <form>
@@ -46,7 +65,17 @@
                     <img src="images/btn_join.gif">
                     <img src="images/btn_search.gif">
                 </div>
-            </article>
+            </article> <!-- 로그인 박스 끝 -->
+            <% } else { %>
+            <article id="login_box"> <!-- 로그인 성공한 박스 -->
+                <img id="login_title" src="images/ttl_login.png">
+                <br>
+                <%= sessionId %>님 로그인 중
+                <br>
+            </article> <!-- 로그인 박스 끝 -->
+            <% } %>
+            
+            
             <article id="guestbook">
                 <div id="guestbook_title">
                     <img src="images/ttl_memo.gif">
